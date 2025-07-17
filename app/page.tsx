@@ -1,11 +1,17 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Badge } from "@/components/ui/badge"
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
 import {
   Menu,
   X,
@@ -22,53 +28,63 @@ import {
   Database,
   Globe,
   Zap,
-} from "lucide-react"
-import Image from "next/image"
+} from "lucide-react";
+import Image from "next/image";
 
 export default function QAPortfolio() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState("hero")
-  const [nome, setNome] = useState("")
-  const [mensagem, setMensagem] = useState("")
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("hero");
+  const [nome, setNome] = useState("");
+  const [mensagem, setMensagem] = useState("");
 
-   const enviarParaWhatsApp = (e: React.FormEvent) => {
-    e.preventDefault()
-    const numero = "5554999894639"
-    const texto = `Olá, me chamo ${nome}. ${mensagem}`
-    const url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`
-    window.open(url, "_blank")
-  }
+  const enviarParaWhatsApp = (e: React.FormEvent) => {
+    e.preventDefault();
+    const numero = "5554999894639";
+    const texto = `Olá, me chamo ${nome}. ${mensagem}`;
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+    window.open(url, "_blank");
+  };
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["hero", "sobre", "experiencia", "tecnologias", "projetos", "contato"]
-      const scrollPosition = window.scrollY + 100
+      const sections = [
+        "hero",
+        "sobre",
+        "experiencia",
+        "tecnologias",
+        "projetos",
+        "contato",
+      ];
+      const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
-        const element = document.getElementById(section)
+        const element = document.getElementById(section);
         if (element) {
-          const offsetTop = element.offsetTop
-          const offsetHeight = element.offsetHeight
+          const offsetTop = element.offsetTop;
+          const offsetHeight = element.offsetHeight;
 
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section)
-            break
+          if (
+            scrollPosition >= offsetTop &&
+            scrollPosition < offsetTop + offsetHeight
+          ) {
+            setActiveSection(section);
+            break;
           }
         }
       }
-    }
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
+    const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+      element.scrollIntoView({ behavior: "smooth" });
     }
-    setIsMenuOpen(false)
-  }
+    setIsMenuOpen(false);
+  };
 
   const technologies = [
     { name: "Cypress", icon: Globe },
@@ -81,7 +97,7 @@ export default function QAPortfolio() {
     { name: "Jest", icon: TestTube },
     { name: "PHP", icon: Code },
     { name: "JavaScript", icon: Code },
-  ]
+  ];
 
   const experiences = [
     {
@@ -125,7 +141,7 @@ export default function QAPortfolio() {
         "Testes manuais focados em UI e experiência do usuário, com foco em usabilidade",
       ],
     },
-  ]
+  ];
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
@@ -136,8 +152,18 @@ export default function QAPortfolio() {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full">
           <svg className="w-full h-full opacity-5" viewBox="0 0 100 100">
             <defs>
-              <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5" />
+              <pattern
+                id="grid"
+                width="10"
+                height="10"
+                patternUnits="userSpaceOnUse"
+              >
+                <path
+                  d="M 10 0 L 0 0 0 10"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="0.5"
+                />
               </pattern>
             </defs>
             <rect width="100" height="100" fill="url(#grid)" />
@@ -170,7 +196,9 @@ export default function QAPortfolio() {
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
                   className={`text-sm font-medium transition-colors hover:text-cyan-400 ${
-                    activeSection === item.id ? "text-cyan-400" : "text-gray-300"
+                    activeSection === item.id
+                      ? "text-cyan-400"
+                      : "text-gray-300"
                   }`}
                 >
                   {item.label}
@@ -179,8 +207,15 @@ export default function QAPortfolio() {
             </nav>
 
             {/* Mobile Menu Button */}
-            <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            <button
+              className="md:hidden"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
 
@@ -208,18 +243,23 @@ export default function QAPortfolio() {
       </header>
 
       {/* Hero Section */}
-      <section id="hero" className="min-h-screen flex items-center justify-center relative pt-20">
+      <section
+        id="hero"
+        className="min-h-screen flex items-center justify-center relative pt-20"
+      >
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent animate-pulse">
               Oi, me chamo Jefferson
             </h1>
             <h2 className="text-2xl md:text-2xl font-semibold mb-6 text-gray-300">
-              Atuo há 4 anos na área de qualidade de software com foco em garantir qualidade em todas as etapas do ciclo de desenvolvimento
+              Atuo há 4 anos na área de qualidade de software com foco em
+              garantir qualidade em todas as etapas do ciclo de desenvolvimento
             </h2>
             <p className="text-lg md:text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-              Especialista em garantir a excelência de produtos digitais (web e mobile) através de testes automatizados, estratégias de
-              qualidade e melhores práticas de desenvolvimento.
+              Especialista em garantir a excelência de produtos digitais (web e
+              mobile) através de testes automatizados, estratégias de qualidade
+              e melhores práticas de desenvolvimento.
             </p>
             <Button
               onClick={() => scrollToSection("contato")}
@@ -253,25 +293,37 @@ export default function QAPortfolio() {
               </div>
               <div>
                 <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-                  Sou um QA Engineer com mais de 5 anos de experiência em garantir a qualidade de software em diversos
-                  tipos de projetos, desde startups até grandes corporações.
+                  Sou um QA Engineer com mais de 5 anos de experiência em
+                  garantir a qualidade de software em diversos tipos de
+                  projetos, desde startups até grandes corporações.
                 </p>
                 <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-                  Minha paixão está em criar estratégias de teste eficientes, implementar automação inteligente e
-                  colaborar com equipes para entregar produtos excepcionais.
+                  Minha paixão está em criar estratégias de teste eficientes,
+                  implementar automação inteligente e colaborar com equipes para
+                  entregar produtos excepcionais.
                 </p>
                 <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-                  Tenho um perfil proativo e estou sempre em busca de novas ferramentas, metodologias e boas práticas
-                  que possam elevar o nível de qualidade dos projetos em que atuo.
+                  Tenho um perfil proativo e estou sempre em busca de novas
+                  ferramentas, metodologias e boas práticas que possam elevar o
+                  nível de qualidade dos projetos em que atuo.
                 </p>
                 <div className="flex flex-wrap gap-3">
-                  <Badge variant="secondary" className="bg-cyan-500/20 text-cyan-300 border-cyan-500/30">
+                  <Badge
+                    variant="secondary"
+                    className="bg-cyan-500/20 text-cyan-300 border-cyan-500/30"
+                  >
                     Liderança Técnica
                   </Badge>
-                  <Badge variant="secondary" className="bg-purple-500/20 text-purple-300 border-purple-500/30">
+                  <Badge
+                    variant="secondary"
+                    className="bg-purple-500/20 text-purple-300 border-purple-500/30"
+                  >
                     Automação de Testes
                   </Badge>
-                  <Badge variant="secondary" className="bg-cyan-500/20 text-cyan-300 border-cyan-500/30">
+                  <Badge
+                    variant="secondary"
+                    className="bg-cyan-500/20 text-cyan-300 border-cyan-500/30"
+                  >
                     Mentoria
                   </Badge>
                 </div>
@@ -297,12 +349,17 @@ export default function QAPortfolio() {
                   <CardHeader>
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                       <div>
-                        <CardTitle className="text-xl text-cyan-400">{exp.position}</CardTitle>
+                        <CardTitle className="text-xl text-cyan-400">
+                          {exp.position}
+                        </CardTitle>
                         <CardDescription className="text-lg text-purple-300 font-semibold">
                           {exp.company}
                         </CardDescription>
                       </div>
-                      <Badge variant="outline" className="border-cyan-500/50 text-cyan-300 mt-2 md:mt-0">
+                      <Badge
+                        variant="outline"
+                        className="border-cyan-500/50 text-cyan-300 mt-2 md:mt-0"
+                      >
                         {exp.period}
                       </Badge>
                     </div>
@@ -310,7 +367,10 @@ export default function QAPortfolio() {
                   <CardContent>
                     <ul className="space-y-2">
                       {exp.responsibilities.map((resp, idx) => (
-                        <li key={idx} className="flex items-start space-x-2 text-gray-300">
+                        <li
+                          key={idx}
+                          className="flex items-start space-x-2 text-gray-300"
+                        >
                           <div className="w-2 h-2 bg-cyan-400 rounded-full mt-2 flex-shrink-0"></div>
                           <span>{resp}</span>
                         </li>
@@ -333,7 +393,7 @@ export default function QAPortfolio() {
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {technologies.map((tech, index) => {
-                const IconComponent = tech.icon
+                const IconComponent = tech.icon;
                 return (
                   <Card
                     key={index}
@@ -346,7 +406,7 @@ export default function QAPortfolio() {
                       </h3>
                     </CardContent>
                   </Card>
-                )
+                );
               })}
             </div>
           </div>
@@ -364,28 +424,25 @@ export default function QAPortfolio() {
             {/* Work in Progress Section */}
             <div className="relative">
               {/* Caution Tapes with diagonal stripes */}
-              <div className="absolute -top-4 -left-4 w-full h-8 transform -rotate-3 opacity-95 overflow-hidden">
-                
-              </div>
+              <div className="absolute -top-4 -left-4 w-full h-8 transform -rotate-3 opacity-95 overflow-hidden"></div>
 
-              <div className="absolute -bottom-4 -right-4 w-full h-8 transform rotate-2 opacity-95 overflow-hidden">
-                
-              </div>
+              <div className="absolute -bottom-4 -right-4 w-full h-8 transform rotate-2 opacity-95 overflow-hidden"></div>
 
               {/* Additional crossing tapes for more realistic effect */}
-              <div className="absolute top-1/2 -left-8 w-1/3 h-6 transform -rotate-12 opacity-90 overflow-hidden">
-                
-              </div>
+              <div className="absolute top-1/2 -left-8 w-1/3 h-6 transform -rotate-12 opacity-90 overflow-hidden"></div>
 
-              <div className="absolute top-1/3 -right-8 w-1/3 h-6 transform rotate-15 opacity-90 overflow-hidden">
-                
-              </div>
+              <div className="absolute top-1/3 -right-8 w-1/3 h-6 transform rotate-15 opacity-90 overflow-hidden"></div>
 
               {/* Main Content */}
               <div className="p-12 text-center relative z-10">
                 <div className="mb-8">
                   <div className="inline-flex items-center justify-center w-24 h-24 bg-yellow-500/20 rounded-full mb-6">
-                    <svg className="w-12 h-12 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg
+                      className="w-12 h-12 text-yellow-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -396,34 +453,54 @@ export default function QAPortfolio() {
                   </div>
                 </div>
 
-                <h3 className="text-3xl font-bold text-yellow-400 mb-4">Work in Progress</h3>
+                <h3 className="text-3xl font-bold text-yellow-400 mb-4">
+                  Work in Progress
+                </h3>
 
                 <p className="text-lg text-gray-300 mb-6 max-w-2xl mx-auto leading-relaxed">
-                  Estou trabalhando em alguns projetos incríveis de automação de testes e frameworks personalizados. Em
-                  breve você poderá conferir cases detalhados e repositórios com implementações reais.
+                  Estou trabalhando em alguns projetos incríveis de automação de
+                  testes e frameworks personalizados. Em breve você poderá
+                  conferir cases detalhados e repositórios com implementações
+                  reais.
                 </p>
 
                 <div className="flex flex-wrap justify-center gap-3 mb-8">
-                  <Badge variant="secondary" className="bg-yellow-500/20 text-yellow-300 border-yellow-500/30">
+                  <Badge
+                    variant="secondary"
+                    className="bg-yellow-500/20 text-yellow-300 border-yellow-500/30"
+                  >
                     🚧 Em Desenvolvimento
                   </Badge>
-                  <Badge variant="secondary" className="bg-cyan-500/20 text-cyan-300 border-cyan-500/30">
+                  <Badge
+                    variant="secondary"
+                    className="bg-cyan-500/20 text-cyan-300 border-cyan-500/30"
+                  >
                     🔧 Cypress Framework
                   </Badge>
-                  <Badge variant="secondary" className="bg-purple-500/20 text-purple-300 border-purple-500/30">
+                  <Badge
+                    variant="secondary"
+                    className="bg-purple-500/20 text-purple-300 border-purple-500/30"
+                  >
                     ⚡ API Testing Suite
                   </Badge>
-                  <Badge variant="secondary" className="bg-cyan-500/20 text-cyan-300 border-cyan-500/30">
+                  <Badge
+                    variant="secondary"
+                    className="bg-cyan-500/20 text-cyan-300 border-cyan-500/30"
+                  >
                     🧪 Unit Tests
                   </Badge>
-                  <Badge variant="secondary" className="bg-purple-500/20 text-purple-300 border-purple-500/30">
+                  <Badge
+                    variant="secondary"
+                    className="bg-purple-500/20 text-purple-300 border-purple-500/30"
+                  >
                     📊 Performance Tests
                   </Badge>
                 </div>
 
                 <div className="text-sm text-gray-400">
                   <p>
-                    💡 Enquanto isso, fique à vontade para entrar em contato e conhecer mais sobre minha experiência!
+                    💡 Enquanto isso, fique à vontade para entrar em contato e
+                    conhecer mais sobre minha experiência!
                   </p>
                 </div>
               </div>
@@ -441,15 +518,20 @@ export default function QAPortfolio() {
             </h2>
             <div className="grid md:grid-cols-2 gap-12">
               <div>
-                <h3 className="text-2xl font-semibold mb-6 text-cyan-400">Entre em Contato</h3>
+                <h3 className="text-2xl font-semibold mb-6 text-cyan-400">
+                  Entre em Contato
+                </h3>
                 <p className="text-gray-300 mb-8 leading-relaxed">
-                  Estou sempre aberto a novas oportunidades e conversas interessantes sobre qualidade de software. Vamos
-                  trocar ideias!
+                  Estou sempre aberto a novas oportunidades e conversas
+                  interessantes sobre qualidade de software. Vamos trocar
+                  ideias!
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3">
                     <Mail className="w-5 h-5 text-cyan-400" />
-                    <span className="text-gray-300">qajefferson92@gmail.com</span>
+                    <span className="text-gray-300">
+                      qajefferson92@gmail.com
+                    </span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Phone className="w-5 h-5 text-cyan-400" />
@@ -461,13 +543,19 @@ export default function QAPortfolio() {
                   </div>
                 </div>
                 <div className="flex space-x-4 mt-8">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="border-cyan-500/50 text-cyan-300 hover:bg-cyan-500/10 bg-transparent"
+                  <a
+                    href="https://www.linkedin.com/in/jefferson-da-silva-borges/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    <Linkedin className="w-5 h-5" />
-                  </Button>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="border-cyan-500/50 text-cyan-300 hover:bg-cyan-300 bg-transparent"
+                    >
+                      <Linkedin className="w-5 h-5" />
+                    </Button>
+                  </a>
                   {/* <Button
                     variant="outline"
                     size="icon"
@@ -481,7 +569,9 @@ export default function QAPortfolio() {
                 <CardContent className="p-6">
                   <form className="space-y-6" onSubmit={enviarParaWhatsApp}>
                     <div className="flex items-center space-x-6">
-                      <h3 className="text-base font-semibold ml-4 text-gray-300">Me manda uma mensagem no Whats</h3>
+                      <h3 className="text-base font-semibold ml-4 text-gray-300">
+                        Me manda uma mensagem no Whats
+                      </h3>
                       <MessageCircleMore className="w-8 h-8 text-green-400" />
                     </div>
                     <div>
@@ -489,7 +579,7 @@ export default function QAPortfolio() {
                         placeholder="Seu nome"
                         className="bg-slate-800/50 border-slate-600 text-white placeholder-gray-400 focus:border-cyan-500"
                         value={nome}
-                        onChange={e => setNome(e.target.value)}
+                        onChange={(e) => setNome(e.target.value)}
                       />
                     </div>
                     <div>
@@ -498,7 +588,7 @@ export default function QAPortfolio() {
                         rows={5}
                         className="bg-slate-800/50 border-slate-600 text-white placeholder-gray-400 focus:border-cyan-500 resize-none"
                         value={mensagem}
-                        onChange={e => setMensagem(e.target.value)}
+                        onChange={(e) => setMensagem(e.target.value)}
                       />
                     </div>
                     <Button className="w-full bg-gradient-to-r from-green-500 to-green-800 hover:from-green-300 hover:to-green-800 text-white">
@@ -516,12 +606,24 @@ export default function QAPortfolio() {
       <footer className="py-8 border-t border-slate-800 bg-slate-950/50">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="text-gray-400 mb-4 md:mb-0">© 2024 Jefferson Borges. Todos os direitos reservados.</div>
+            <div className="text-gray-400 mb-4 md:mb-0">
+              © 2024 Jefferson Borges. Todos os direitos reservados.
+            </div>
             <div className="flex space-x-4">
-              <Button variant="ghost" size="sm" className="text-gray-400 hover:text-cyan-400">
-                <Linkedin className="w-4 h-4 mr-2" />
-                LinkedIn
-              </Button>
+              <a
+                href="https://www.linkedin.com/in/jefferson-da-silva-borges/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-gray-400 hover:text-cyan-400"
+                >
+                  <Linkedin className="w-4 h-4 mr-2" />
+                  LinkedIn
+                </Button>
+              </a>
               {/* <Button variant="ghost" size="sm" className="text-gray-400 hover:text-purple-400">
                 <Github className="w-4 h-4 mr-2" />
                 GitHub
@@ -531,5 +633,5 @@ export default function QAPortfolio() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
