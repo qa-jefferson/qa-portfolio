@@ -48,19 +48,27 @@ export default function QAPortfolio() {
   };
 
   useEffect(() => {
-    const sr = ScrollReveal({
-      distance: "50px",
-      duration: 1000,
-      easing: "ease-out",
-      origin: "bottom",
-      reset: false,
-      interval: 100,
-    });
+    async function animate() {
+      if (typeof window !== "undefined") {
+        const ScrollReveal = (await import("scrollreveal")).default;
 
-    sr.reveal(".reveal-fade", { opacity: 0 });
-    sr.reveal(".reveal-left", { origin: "left", opacity: 0 });
-    sr.reveal(".reveal-right", { origin: "right", opacity: 0 });
-    sr.reveal(".reveal-top", { origin: "top", opacity: 0 });
+        const sr = ScrollReveal({
+          distance: "50px",
+          duration: 1000,
+          easing: "ease-out",
+          origin: "bottom",
+          reset: false,
+          interval: 100,
+        });
+
+        sr.reveal(".reveal-fade", { opacity: 0 });
+        sr.reveal(".reveal-left", { origin: "left", opacity: 0 });
+        sr.reveal(".reveal-right", { origin: "right", opacity: 0 });
+        sr.reveal(".reveal-top", { origin: "top", opacity: 0 });
+      }
+    }
+
+    animate();
   }, []);
 
   useEffect(() => {
