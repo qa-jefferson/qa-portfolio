@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import ScrollReveal from "scrollreveal";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -30,6 +31,7 @@ import {
   Zap,
 } from "lucide-react";
 import Image from "next/image";
+import { interval } from "date-fns";
 
 export default function QAPortfolio() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -44,6 +46,30 @@ export default function QAPortfolio() {
     const url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
     window.open(url, "_blank");
   };
+
+  useEffect(() => {
+    async function animate() {
+      if (typeof window !== "undefined") {
+        const ScrollReveal = (await import("scrollreveal")).default;
+
+        const sr = ScrollReveal({
+          distance: "50px",
+          duration: 1000,
+          easing: "ease-out",
+          origin: "bottom",
+          reset: false,
+          interval: 100,
+        });
+
+        sr.reveal(".reveal-fade", { opacity: 0 });
+        sr.reveal(".reveal-left", { origin: "left", opacity: 0 });
+        sr.reveal(".reveal-right", { origin: "right", opacity: 0 });
+        sr.reveal(".reveal-top", { origin: "top", opacity: 0 });
+      }
+    }
+
+    animate();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -245,7 +271,7 @@ export default function QAPortfolio() {
       {/* Hero Section */}
       <section
         id="hero"
-        className="min-h-screen flex items-center justify-center relative pt-20"
+        className="min-h-screen flex items-center justify-center relative pt-20 reveal-fade"
       >
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-4xl mx-auto">
@@ -275,12 +301,12 @@ export default function QAPortfolio() {
       <section id="sobre" className="py-20 relative">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            <h2 className="text-5xl font-bold text-center mb-12 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
               Sobre Mim
             </h2>
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="text-center ml-12 md:text-left">
-                <div className="relative w-80 h-80 mx-auto md:mx-0 mb-8">
+            <div className="flex flex-col md:flex-row items-start gap-8">
+              <div className="w-full mt-6 md:w-1/3 flex justify-center">
+                <div className="reveal-left relative w-80 h-70 mx-auto md:mx-0 mb-8">
                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full blur-sm opacity-75"></div>
                   <Image
                     src="/profile.png"
@@ -291,28 +317,34 @@ export default function QAPortfolio() {
                   />
                 </div>
               </div>
-              <div>
-                <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-                  Sou um QA Engineer com mais de 5 anos de experiência em
-                  garantir a qualidade de software em diversos tipos de
-                  projetos, desde startups até grandes corporações.
+              <div className="max-w-5xl w-full reveal-right">
+                <p className="text-lg text-gray-300 mb-4">
+                  Sou um profissional de Qualidade de Software com 4 anos de
+                  experiência, atuando com testes manuais e automatizados,
+                  validação de aplicações web e mobile, análise de requisitos e
+                  definição de critérios de aceitação. Tenho foco em entregar
+                  produtos confiáveis, eficientes e com ótima experiência para o
+                  usuário.
                 </p>
-                <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-                  Minha paixão está em criar estratégias de teste eficientes,
-                  implementar automação inteligente e colaborar com equipes para
-                  entregar produtos excepcionais.
+                <p className="text-lg text-gray-300 mb-4">
+                  Já atuei como ponto focal de QA em empresas como Nubank,
+                  Olivia AI e Tomticket. Tenho experiência em implementar áreas
+                  de qualidade do zero, estruturando processos, ferramentas e
+                  fluxos que elevaram a maturidade dos times.
                 </p>
-                <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-                  Tenho um perfil proativo e estou sempre em busca de novas
-                  ferramentas, metodologias e boas práticas que possam elevar o
-                  nível de qualidade dos projetos em que atuo.
+                <p className="text-lg text-gray-300 mb-6">
+                  Atualmente, também atuo como mentor de uma profissional QA
+                  Júnior, apoiando seu desenvolvimento técnico e comportamental.
+                  Acredito na importância de disseminar a cultura de qualidade
+                  desde o início do desenvolvimento e busco incentivar boas
+                  práticas no time.
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Badge
                     variant="secondary"
                     className="bg-cyan-500/20 text-cyan-300 border-cyan-500/30"
                   >
-                    Liderança Técnica
+                    Atuação ponta a ponta
                   </Badge>
                   <Badge
                     variant="secondary"
@@ -337,14 +369,14 @@ export default function QAPortfolio() {
       <section id="experiencia" className="py-20 bg-slate-900/30 relative">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            <h2 className="reveal-fade text-4xl font-bold text-center mb-12 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
               Experiência Profissional
             </h2>
             <div className="space-y-8">
               {experiences.map((exp, index) => (
                 <Card
                   key={index}
-                  className="bg-slate-900/50 border-slate-700 hover:border-cyan-500/50 transition-all duration-300"
+                  className="reveal-fade bg-slate-900/50 border-slate-700 hover:border-cyan-500/50 transition-all duration-300"
                 >
                   <CardHeader>
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between">
@@ -388,16 +420,16 @@ export default function QAPortfolio() {
       <section id="tecnologias" className="py-20 relative">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            <h2 className="reveal-fade text-4xl font-bold text-center mb-12 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
               Tecnologias & Ferramentas
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="reveal-fade grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {technologies.map((tech, index) => {
                 const IconComponent = tech.icon;
                 return (
                   <Card
                     key={index}
-                    className="bg-slate-900/50 border-slate-700 hover:border-cyan-500/50 transition-all duration-300 hover:scale-105 group"
+                    className="reveal-fade bg-slate-900/50 border-slate-700 hover:border-cyan-500/50 transition-all duration-300 hover:scale-105 group"
                   >
                     <CardContent className="p-6 text-center">
                       <IconComponent className="w-12 h-12 mx-auto mb-4 text-cyan-400 group-hover:text-purple-400 transition-colors" />
